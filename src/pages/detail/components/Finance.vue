@@ -61,6 +61,7 @@ export default {
         this.$message.error('没有查询次数了')
       } else {
         this.lookCount--
+        console.log(123)
         localStorage.setItem('lookCount', this.lookCount)
       }
     }
