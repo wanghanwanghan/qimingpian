@@ -15,9 +15,7 @@ export default {
       axios({
         url: baseUrl + url,
         method: 'post',
-        headers: {
-          headers
-        },
+        headers: headers,
         params: data
       })
         // axios.post(baseUrl + url, data, {

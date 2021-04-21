@@ -6,43 +6,38 @@
     <slot v-if="'财务资产' === tagName">
       <finance></finance>
     </slot>
-    <slot v-if="'企业画像' === tagName">
-      <register-info></register-info>
-    </slot>
     <slot v-if="'融资历史' === tagName">
-      <register-info></register-info>
+      <finance-history></finance-history>
     </slot>
     <slot v-if="'公司团队' === tagName">
-      <register-info></register-info>
+      <manager></manager>
     </slot>
     <slot v-if="'招聘信息' === tagName">
-      <register-info></register-info>
-    </slot>
-    <slot v-if="'相似项目' === tagName">
-      <register-info></register-info>
-    </slot>
-    <slot v-if="'工商信息' === tagName">
-      <register-info></register-info>
-    </slot>
-    <slot v-if="'企业图谱' === tagName">
-      <register-info></register-info>
+      <recruitment-list></recruitment-list>
     </slot>
     <slot v-if="'知识产权' === tagName">
-      <register-info></register-info>
+      <patent></patent>
     </slot>
   </el-card>
 </template>
 
 <script>
 import RegisterInfo from "./RegisterInfo"
-import Finance from "./Finance";
-import comm from "../../../tool/comm"
+import Finance from "./Finance"
+import FinanceHistory from "./FinanceHistory"
+import Manager from "./Manager"
+import RecruitmentList from "./RecruitmentList"
+import Patent from "./Patent"
 
 export default {
   name: '',
   components: {
     RegisterInfo,
-    Finance
+    Finance,
+    FinanceHistory,
+    Manager,
+    RecruitmentList,
+    Patent
   },
   // filters: {},
   props: {

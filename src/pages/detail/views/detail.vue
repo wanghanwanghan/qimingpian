@@ -2,6 +2,9 @@
   <div class="html-wrapper">
     <div class="header-wrapper">
       <div class="header-tag-wrapper">
+        <div class="nav-wrapper" @click="jump">
+          <img class="img-wrapper" alt="" src="http://api.meirixindong.com/Static/Image/Image/xdzd_logo_big.jpeg"/>
+        </div>
         <div :class="{headerTagClass:true,headerTagBottom:currentHeaderTag === index}"
              v-for="(item,index) of headerTagList" @click="headerTagClick(index)">{{ item }}
         </div>
@@ -36,7 +39,7 @@ export default {
   data() {
     return {
       headerTagList: [
-        '基本信息', '财务资产', '企业画像', '融资历史', '公司团队', '招聘信息', '相似项目', '工商信息', '企业图谱', '知识产权'
+        '基本信息', '财务资产', '融资历史', '公司团队', '招聘信息', '知识产权'
       ],
       currentHeaderTag: 0,
       tData: {}
@@ -46,6 +49,9 @@ export default {
   computed: {},
   // watch: {},
   mounted() {
+    if (localStorage.getItem('auth') === null || localStorage.getItem('auth') === '') {
+      this.$router.push('/')
+    }
     window.addEventListener('scroll', this.handleScroll)
   },
   beforeCreate() {
@@ -95,6 +101,9 @@ export default {
           this.currentHeaderTag = 0
         }
       }
+    },
+    jump() {
+      this.$router.push('/')
     }
   }
 }
@@ -118,13 +127,20 @@ export default {
     position fixed
     width 100%
     height 60px
-    box-shadow: 3px 3px 5px silver;
+    box-shadow: 3px 3px 5px #EBEEF5
+    z-index 999
 
     .header-tag-wrapper {
       width 1300px
       margin 0 auto
       display flex
       justify-content space-between
+
+      .img-wrapper {
+        cursor pointer
+        width 160px
+        height 60px
+      }
 
       .headerTagClass {
         cursor pointer

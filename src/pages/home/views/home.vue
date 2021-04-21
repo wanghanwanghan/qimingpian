@@ -1,6 +1,15 @@
 <template>
   <div class="body-wrapper">
+    <div class="nav-wrapper">
+      <img class="img-wrapper" src="http://api.meirixindong.com/Static/Image/Image/xdzd_logo_big.jpeg"/>
+    </div>
     <div class="header-wrapper">
+      <div class="one-row">
+        <el-input placeholder="全局搜索，查询条件空格相隔" @keyup.enter.native="search" v-model="cond.keyword" clearable
+                  class="input-with-select keyword-input">
+          <el-button class="keyword-btn" slot="append" @click="search">搜索</el-button>
+        </el-input>
+      </div>
       <div class="one-row">
         <div class="one-row-left">推荐标签</div>
         <div class="one-row-right">
@@ -43,9 +52,32 @@
         </el-table-column>
         <el-table-column
           align="center"
-          prop="business_information.com_jyfw"
-          label="业务"
-          width="500">
+          label="产品"
+          width="550">
+          <template slot-scope="scope">
+            <el-table :data="scope.row.enterprise_business" border>
+              <el-table-column
+                align="center"
+                prop="name"
+                label="名称">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="tag"
+                label="标签">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="desc"
+                label="描述">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="create_time"
+                label="时间">
+              </el-table-column>
+            </el-table>
+          </template>
         </el-table-column>
         <el-table-column
           align="center"
@@ -88,6 +120,27 @@
         @current-change="pageChange">
       </el-pagination>
     </div>
+    <div class="login-wrapper">
+      <el-dialog
+        title="登陆"
+        :visible.sync="dvShow"
+        width="30%"
+        center>
+        <el-form :label-position="labelPosition" label-width="80px" :model="form">
+          <el-form-item label="手机号">
+            <el-input v-model="form.phone"></el-input>
+          </el-form-item>
+          <el-form-item label="验证码">
+            <el-input v-model="form.vCode"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="dvShow = false">取 消</el-button>
+          <el-button type="primary" @click="getCode">获取验证码</el-button>
+          <el-button type="primary" @click="login">登陆</el-button>
+        </span>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -104,7 +157,14 @@ export default {
   // },
   data() {
     return {
+      labelPosition: 'right',
+      form: {
+        phone: '',
+        vCode: '',
+      },
+      dvShow: false,
       cond: {
+        keyword: '',
         tag: '不限',
         financing: '不限',
         time: '不限',
@@ -133,25 +193,7 @@ export default {
         '安徽', '辽宁', '陕西', '江西', '广西', '云南', '黑龙江', '内蒙古', '吉林', '山西', '贵州', '新疆', '甘肃', '海南',
         '宁夏', '青海', '西藏', '香港', '澳门', '台湾'
       ],
-      tableData: [
-        {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }
-      ]
+      tableData: []
     }
   },
   // inject: [],
@@ -205,7 +247,11 @@ export default {
     },
     getData() {
       request.post('api/v1/hy/getData', this.cond, '').then(res => {
-        this.cond.total = res.data.paging.total
+        if (res.data.result === null) {
+          this.cond.total = 0
+        } else {
+          this.cond.total = res.data.paging.total
+        }
         this.tableData = this.handleTableData(res.data.result)
         this.$message({
           message: '查询成功',
@@ -214,7 +260,6 @@ export default {
       }).catch(err => {
         this.$message.error('查询失败');
         this.tableData = []
-        console.log(err)
       });
     },
     handleTableData(data) {
@@ -232,12 +277,66 @@ export default {
       document.documentElement.scrollTop = 0
     },
     rowClick(row, column, event) {
-      let str = JSON.stringify(row);
-      console.log(str)
-      this.$router.push({
-        path: '/detail',
-        query: {str}
-      });
+      if (localStorage.getItem('auth') === null || localStorage.getItem('auth') === '') {
+        this.dvShow = true
+      } else {
+        let str = JSON.stringify(row)
+        this.$router.push({
+          path: '/detail',
+          query: {str}
+        })
+      }
+    },
+    getCode() {
+      request.post('api/v1/comm/create/sms/verifyCode', {
+        'phone': this.form.phone,
+        'type': 'reg'
+      }, '').then(res => {
+        if (res.data.code === 200) {
+          this.$message({
+            message: '发送成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error('发送失败')
+        }
+      }).catch(err => {
+        this.$message.error('发送失败')
+      })
+    },
+    login() {
+      request.post('api/v1/user/reg', {
+        'company': '火眼推广20210420',
+        'phone': this.form.phone,
+        'vCode': this.form.vCode
+      }, '').then(res => {
+        if (res.data.msg === '手机号已经注册过了' || res.data.code === 200) {
+          //登陆
+          request.post('api/v1/user/login', {
+            'phone': this.form.phone,
+            'vCode': this.form.vCode
+          }, '').then(res => {
+            if (res.data.code === 200) {
+              localStorage.setItem('phone', this.form.phone)
+              localStorage.setItem('auth', res.data.result.newToken)
+              this.dvShow = false
+              this.$router.push('/')
+            } else {
+              this.$message.error('登陆失败')
+            }
+          }).catch(err => {
+            this.$message.error('登陆失败')
+          })
+        } else {
+          this.$message.error('失败')
+        }
+      }).catch(err => {
+        this.$message.error('失败')
+      })
+    },
+    search() {
+      this.cond.page = 1
+      this.getData()
     }
   }
 }
@@ -253,13 +352,49 @@ export default {
   font-size 12px
   margin 0 auto
   width 1300px
-  border 1px solid silver
+  border-left 1px solid #EBEEF5
+  border-right 1px solid #EBEEF5
+  border-bottom 1px solid #EBEEF5
+  position absolute
+  top 0
+  bottom 0
+  left 0
+  right 0
+
+  .login-wrapper {
+  }
+
+  .nav-wrapper {
+    position fixed
+    width 1300px
+    height 80px
+    z-index 999
+    background-color white
+    box-shadow: 0px 3px 5px #EBEEF5
+
+    .img-wrapper {
+      width 200px
+      height 80px
+    }
+  }
 
   .header-wrapper {
+    margin-top 100px
+
     .one-row {
       display flex
       padding-left 25px
       margin-bottom 25px
+
+      .keyword-input {
+        width 50%
+        margin 0 auto
+      }
+
+      .keyword-btn {
+        background-color #006eda
+        color #fff
+      }
 
       .one-row-left {
         width 5%
@@ -277,7 +412,7 @@ export default {
           float left
           width 6%
           padding-bottom 1.5%
-          border 1px solid silver
+          border 1px solid #EBEEF5
           text-align center
           border-radius 10px
         }
