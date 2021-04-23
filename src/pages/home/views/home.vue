@@ -145,7 +145,7 @@
 </template>
 
 <script>
-import request from "../../../comm/js/request";
+import request from "../../../comm/js/request"
 
 export default {
   name: '',
@@ -256,11 +256,11 @@ export default {
         this.$message({
           message: '查询成功',
           type: 'success'
-        });
+        })
       }).catch(err => {
-        this.$message.error('查询失败');
+        this.$message.error('查询失败')
         this.tableData = []
-      });
+      })
     },
     handleTableData(data) {
       for (let i = 0; i < data.length; i++) {

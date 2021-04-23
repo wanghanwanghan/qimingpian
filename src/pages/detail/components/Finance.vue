@@ -117,7 +117,7 @@ export default {
   methods: {
     getData() {
       if (this.lookCount <= 0) {
-        this.$message.error('没有查询次数了')
+        alert("您没有查询次数了，请联系 400-068-7266 增加次数")
       } else {
         this.lookCount--
         localStorage.setItem('lookCount', this.lookCount)
@@ -165,7 +165,7 @@ export default {
           }
         },
         legend: {
-          data: ['利润总额', '同比']
+          data: ['盈利能力', '同比']
         },
         xAxis: [
           {
@@ -179,7 +179,7 @@ export default {
         yAxis: [
           {
             type: 'value',
-            name: '利润总额',
+            name: '盈利能力',
             min: null,
             max: null,
             interval: null,
@@ -200,7 +200,7 @@ export default {
         ],
         series: [
           {
-            name: '利润总额',
+            name: '盈利能力',
             type: 'bar',
             data: []
           },
@@ -216,7 +216,7 @@ export default {
       let series = []
       this.colorIndex = 0
       for (let key in data) {
-        legend.push(key + '利润总额')
+        legend.push(key + '盈利能力')
         legend.push(key + '同比')
         let yearData = []
         let yearDataYoy = []
@@ -225,7 +225,7 @@ export default {
           yearDataYoy.push(data[key][i]['PROGRO_yoy'])
         }
         let objData = {
-          name: key + '利润总额',
+          name: key + '盈利能力',
           type: 'bar',
           data: yearData,
           itemStyle: {
@@ -248,7 +248,7 @@ export default {
         series.push(objYoy)
       }
       PROGRO_op.legend.data = legend
-      PROGRO_op.yAxis.name = '利润总额'
+      PROGRO_op.yAxis.name = '盈利能力'
       PROGRO_op.series = series
       PROGRO_ec.setOption(PROGRO_op, true)
     },
@@ -274,7 +274,7 @@ export default {
           }
         },
         legend: {
-          data: ['营业总收入', '同比']
+          data: ['营收规模', '同比']
         },
         xAxis: [
           {
@@ -288,7 +288,7 @@ export default {
         yAxis: [
           {
             type: 'value',
-            name: '营业总收入',
+            name: '营收规模',
             min: null,
             max: null,
             interval: null,
@@ -309,7 +309,7 @@ export default {
         ],
         series: [
           {
-            name: '营业总收入',
+            name: '营收规模',
             type: 'bar',
             data: []
           },
@@ -325,7 +325,7 @@ export default {
       let series = []
       this.colorIndex = 0
       for (let key in data) {
-        legend.push(key + '营业总收入')
+        legend.push(key + '营收规模')
         legend.push(key + '同比')
         let yearData = []
         let yearDataYoy = []
@@ -334,7 +334,7 @@ export default {
           yearDataYoy.push(data[key][i]['VENDINC_yoy'])
         }
         let objData = {
-          name: key + '营业总收入',
+          name: key + '营收规模',
           type: 'bar',
           data: yearData,
           itemStyle: {
@@ -357,7 +357,7 @@ export default {
         series.push(objYoy)
       }
       VENDINC_op.legend.data = legend
-      VENDINC_op.yAxis.name = '营业总收入'
+      VENDINC_op.yAxis.name = '营收规模'
       VENDINC_op.series = series
       VENDINC_ec.setOption(VENDINC_op, true)
     },
@@ -383,7 +383,7 @@ export default {
           }
         },
         legend: {
-          data: ['资产总额', '同比']
+          data: ['资产规模', '同比']
         },
         xAxis: [
           {
@@ -397,7 +397,7 @@ export default {
         yAxis: [
           {
             type: 'value',
-            name: '资产总额',
+            name: '资产规模',
             min: null,
             max: null,
             interval: null,
@@ -418,7 +418,7 @@ export default {
         ],
         series: [
           {
-            name: '资产总额',
+            name: '资产规模',
             type: 'bar',
             data: []
           },
@@ -434,7 +434,7 @@ export default {
       let series = []
       this.colorIndex = 0
       for (let key in data) {
-        legend.push(key + '资产总额')
+        legend.push(key + '资产规模')
         legend.push(key + '同比')
         let yearData = []
         let yearDataYoy = []
@@ -443,7 +443,7 @@ export default {
           yearDataYoy.push(data[key][i]['ASSGRO_yoy'])
         }
         let objData = {
-          name: key + '资产总额',
+          name: key + '资产规模',
           type: 'bar',
           data: yearData,
           itemStyle: {
@@ -466,7 +466,7 @@ export default {
         series.push(objYoy)
       }
       ASSGRO_op.legend.data = legend
-      ASSGRO_op.yAxis.name = '资产总额'
+      ASSGRO_op.yAxis.name = '资产规模'
       ASSGRO_op.series = series
       ASSGRO_ec.setOption(ASSGRO_op, true)
     },
