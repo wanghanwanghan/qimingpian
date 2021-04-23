@@ -33,6 +33,26 @@
       <div class="finance-btn" v-show="showBtn">
         <el-button type="warning" round @click="getData">您共有 5 次免费查看机会，还剩 {{ lookCount }} 次</el-button>
       </div>
+      <div v-show="showBtn">
+        <div class="block">
+          <div style="width: 100%;height: 100px;font-size: 30px;font-weight: 800;color: red;line-height: 100px">营收规模 -
+            数据样例
+          </div>
+          <el-image :src="src1"></el-image>
+        </div>
+        <div class="block">
+          <div style="width: 100%;height: 100px;font-size: 30px;font-weight: 800;color: red;line-height: 100px">盈利能力 -
+            数据样例
+          </div>
+          <el-image :src="src2"></el-image>
+        </div>
+        <div class="block">
+          <div style="width: 100%;height: 100px;font-size: 30px;font-weight: 800;color: red;line-height: 100px">资产规模 -
+            数据样例
+          </div>
+          <el-image :src="src3"></el-image>
+        </div>
+      </div>
       <div class="VENDINC-ec-wrapper" v-show="!showBtn">
         <div class="VENDINC-ec-pic" ref="VENDINC"></div>
       </div>
@@ -59,6 +79,9 @@ export default {
   // },
   data() {
     return {
+      src1: '/static/ysgm.png',
+      src2: '/static/ylnl.png',
+      src3: '/static/zcgm.png',
       colorList: [
         '#5470c6',
         '#91cc75',
@@ -573,6 +596,8 @@ export default {
   }
 
   .VENDINC-ec-wrapper {
+    margin-top 30px
+
     .VENDINC-ec-pic {
       width 1258px
       height 700px
