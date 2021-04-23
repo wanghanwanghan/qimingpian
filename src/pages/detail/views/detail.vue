@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       headerTagList: [
-        '基本信息', '财务资产', '融资历史', '公司团队', '招聘信息', '知识产权'
+        '基本信息', '财务表现', '融资历史', '公司团队', '招聘信息', '知识产权'
       ],
       currentHeaderTag: 0,
       tData: {}

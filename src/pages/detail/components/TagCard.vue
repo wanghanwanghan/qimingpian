@@ -3,7 +3,7 @@
     <slot v-if="'基本信息' === tagName">
       <register-info></register-info>
     </slot>
-    <slot v-if="'财务资产' === tagName">
+    <slot v-if="'财务表现' === tagName">
       <finance></finance>
     </slot>
     <slot v-if="'融资历史' === tagName">

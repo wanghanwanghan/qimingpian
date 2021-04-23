@@ -11,7 +11,7 @@
         </el-input>
       </div>
       <div class="one-row">
-        <div class="one-row-left">推荐标签</div>
+        <div class="one-row-left">业务标签</div>
         <div class="one-row-right">
           <div :class="{oneTag:true,onTagClickClass:tag1CurrentIndex === index}" v-for="(item,index) of tag1list"
                @click="tag1click($event,index)">{{ item }}
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="one-row">
-        <div class="one-row-left">当前轮次</div>
+        <div class="one-row-left">融资轮次</div>
         <div class="one-row-right">
           <div :class="{oneTag:true,onTagClickClass:tag2CurrentIndex === index}" v-for="(item,index) of tag2list"
                @click="tag2click($event,index)">{{ item }}
@@ -180,6 +180,9 @@ export default {
       ],
       tag2CurrentIndex: 0,
       tag2list: [
+        '不限', '天使轮', 'A轮', 'B轮', 'C轮', '战略融资'
+      ],
+      tag2templist: [
         '不限', '种子轮', '天使轮', 'Pre-A轮', 'A轮', 'A+轮', 'Pre-B轮', 'B轮', 'B+轮', 'C轮', 'C+轮', 'D轮', 'Pro-IPO轮',
         '战略融资', '并购', '战略合并'
       ],
