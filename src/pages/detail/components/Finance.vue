@@ -30,7 +30,7 @@
           </el-col>
         </el-row>
       </div>
-      <el-collapse accordion v-show="showScoreDataTable">
+      <el-collapse accordion v-show="false">
         <el-collapse-item :title=exprBestEnt>
           <template>
             <el-table
