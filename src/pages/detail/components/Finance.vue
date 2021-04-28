@@ -328,11 +328,15 @@ export default {
             this.handlerPData(this.fData)
             this.handlerVData(this.fData)
             this.handlerAData(this.fData)
+            this.$message({
+              message: '查询成功',
+              type: 'success'
+            })
           }
-          this.$message({
-            message: '查询成功',
-            type: 'success'
-          });
+          if (res.data.code === 240) {
+            localStorage.setItem('auth', '')
+            this.$router.push('/')
+          }
         }).catch(err => {
           this.$message.error('查询失败')
         });
