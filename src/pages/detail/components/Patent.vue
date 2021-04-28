@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="title-zl">专利</div>
-    <el-table :data="tableData" border>
+    <el-table :data="tableData" border :header-cell-style="{color:'#006eda'}">
       <el-table-column
         align="center"
         prop="Title"
@@ -34,7 +34,7 @@
       </el-table-column>
     </el-table>
     <div class="title-rz">软著</div>
-    <el-table :data="tableData2" border>
+    <el-table :data="tableData2" border :header-cell-style="{color:'#006eda'}">
       <el-table-column
         align="center"
         prop="Name"

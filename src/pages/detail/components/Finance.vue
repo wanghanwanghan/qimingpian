@@ -30,59 +30,6 @@
           </el-col>
         </el-row>
       </div>
-      <el-collapse accordion v-show="false">
-        <el-collapse-item :title=exprBestEnt>
-          <template>
-            <el-table
-              :data="scoreData"
-              style="width: 100%"
-              border>
-              <el-table-column
-                align="center"
-                prop="index"
-                label="序号"
-                width="50">
-              </el-table-column>
-              <el-table-column
-                align="center"
-                prop="entName"
-                label="企业名称"
-                width="200">
-              </el-table-column>
-              <el-table-column
-                align="center"
-                prop="scoreAll"
-                label="综合评分"
-                width="100">
-              </el-table-column>
-              <el-table-column
-                align="center"
-                label="详细">
-                <template slot-scope="scope">
-                  <el-table :data="scope.row.detail" border>
-                    <el-table-column
-                      align="center"
-                      prop="desc"
-                      label="评分说明"
-                      width="450">
-                    </el-table-column>
-                    <el-table-column
-                      align="center"
-                      prop="features"
-                      label="业务特征">
-                    </el-table-column>
-                    <el-table-column
-                      align="center"
-                      prop="score"
-                      label="评分">
-                    </el-table-column>
-                  </el-table>
-                </template>
-              </el-table-column>
-            </el-table>
-          </template>
-        </el-collapse-item>
-      </el-collapse>
       <div class="finance-btn" v-show="showBtn">
         <el-button type="warning" round @click="getData">您共有 5 次免费查看机会，还剩 {{ lookCount }} 次</el-button>
       </div>
@@ -108,12 +55,174 @@
       </div>
       <div class="VENDINC-ec-wrapper" v-show="!showBtn">
         <div class="VENDINC-ec-pic" ref="VENDINC"></div>
+        <el-collapse accordion>
+          <el-collapse-item :title="bestEntForVENDINC">
+            <template>
+              <el-table
+                :data="scoreDataForVENDINC"
+                style="width: 100%"
+                border
+                :header-cell-style="{color:'#006eda'}">
+                <el-table-column
+                  align="center"
+                  prop="index"
+                  label="序号"
+                  width="50">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  prop="entName"
+                  label="企业名称"
+                  width="200">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  prop="score"
+                  label="综合评分"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  label="详细">
+                  <template slot-scope="scope">
+                    <el-table :data="scope.row.detail" border :header-cell-style="{color:'#006eda'}">
+                      <el-table-column
+                        align="center"
+                        prop="desc"
+                        label="评分说明"
+                        width="450">
+                      </el-table-column>
+                      <el-table-column
+                        align="center"
+                        prop="features"
+                        label="业务特征">
+                      </el-table-column>
+                      <el-table-column
+                        align="center"
+                        prop="score"
+                        label="评分">
+                      </el-table-column>
+                    </el-table>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
+          </el-collapse-item>
+        </el-collapse>
       </div>
       <div class="PROGRO-ec-wrapper" v-show="!showBtn">
         <div class="PROGRO-ec-pic" ref="PROGRO"></div>
+        <el-collapse accordion>
+          <el-collapse-item :title="bestEntForPROGRO">
+            <template>
+              <el-table
+                :data="scoreDataForPROGRO"
+                style="width: 100%"
+                border
+                :header-cell-style="{color:'#006eda'}">
+                <el-table-column
+                  align="center"
+                  prop="index"
+                  label="序号"
+                  width="50">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  prop="entName"
+                  label="企业名称"
+                  width="200">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  prop="score"
+                  label="综合评分"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  label="详细">
+                  <template slot-scope="scope">
+                    <el-table :data="scope.row.detail" border :header-cell-style="{color:'#006eda'}">
+                      <el-table-column
+                        align="center"
+                        prop="desc"
+                        label="评分说明"
+                        width="450">
+                      </el-table-column>
+                      <el-table-column
+                        align="center"
+                        prop="features"
+                        label="业务特征">
+                      </el-table-column>
+                      <el-table-column
+                        align="center"
+                        prop="score"
+                        label="评分">
+                      </el-table-column>
+                    </el-table>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
+          </el-collapse-item>
+        </el-collapse>
       </div>
       <div class="ASSGRO-ec-wrapper" v-show="!showBtn">
         <div class="ASSGRO-ec-pic" ref="ASSGRO"></div>
+        <el-collapse accordion>
+          <el-collapse-item :title="bestEntForASSGRO">
+            <template>
+              <el-table
+                :data="scoreDataForASSGRO"
+                style="width: 100%"
+                border
+                :header-cell-style="{color:'#006eda'}">
+                <el-table-column
+                  align="center"
+                  prop="index"
+                  label="序号"
+                  width="50">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  prop="entName"
+                  label="企业名称"
+                  width="200">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  prop="score"
+                  label="综合评分"
+                  width="100">
+                </el-table-column>
+                <el-table-column
+                  align="center"
+                  label="详细">
+                  <template slot-scope="scope">
+                    <el-table :data="scope.row.detail" border :header-cell-style="{color:'#006eda'}">
+                      <el-table-column
+                        align="center"
+                        prop="desc"
+                        label="评分说明"
+                        width="450">
+                      </el-table-column>
+                      <el-table-column
+                        align="center"
+                        prop="features"
+                        label="业务特征">
+                      </el-table-column>
+                      <el-table-column
+                        align="center"
+                        prop="score"
+                        label="评分">
+                      </el-table-column>
+                    </el-table>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </template>
+          </el-collapse-item>
+        </el-collapse>
       </div>
     </div>
   </div>
@@ -132,9 +241,12 @@ export default {
   // },
   data() {
     return {
-      showScoreDataTable: false,
-      bestEnt: '',
-      scoreData: [],
+      bestEntForVENDINC: '',
+      bestEntForPROGRO: '',
+      bestEntForASSGRO: '',
+      scoreDataForVENDINC: [],
+      scoreDataForPROGRO: [],
+      scoreDataForASSGRO: [],
       src1: '/static/ysgm.png',
       src2: '/static/ylnl.png',
       src3: '/static/zcgm.png',
@@ -162,11 +274,7 @@ export default {
     }
   },
   // inject: [],
-  computed: {
-    exprBestEnt() {
-      return '基于对同类企业对应行为信息的智能算法评估分析，' + this.bestEnt + '为目前对比群体中的较优者'
-    }
-  },
+  computed: {},
   // watch: {},
   mounted() {
     this.tData = JSON.parse(localStorage.getItem('ent'))
@@ -593,56 +701,12 @@ export default {
           this.handlerPData(res.data.result)
           this.handlerAData(res.data.result)
           this.handlerVData(res.data.result)
-          this.showScoreDataTable = true
-          this.scoreData = []
-          let max = 0;
-          this.bestEnt = ''
-          let i = 1
-          for (let key in res.data.ext) {
-            let obj = {
-              index: i,
-              entName: key,
-              scoreAll: res.data.ext[key]['ASSGRO'] + res.data.ext[key]['ASSGRO_yoy'] + res.data.ext[key]['NETINCMAIBUSINC'] + res.data.ext[key]['PROGRO_yoy'] + res.data.ext[key]['VENDINC'] + res.data.ext[key]['VENDINC_yoy'],
-              detail: [
-                {
-                  score: res.data.ext[key]['ASSGRO'],
-                  desc: '1.按0分到100分划分，评分越高，企业资产规模越大,2.通过分析与企业资产有关行为后的评估结果。主要供判断企业的资产规模状况',
-                  features: '企业资产规模状况'
-                },
-                {
-                  score: res.data.ext[key]['ASSGRO_yoy'],
-                  desc: '1.按0分到100分划分，评分越高，企业规模增长的能力越强,2.通过分析与企业资产维度有关行为后的评估结果。主要反映企业的资产变化情况，供判断企业的整体规模与合作能力',
-                  features: '企业资产增长状况'
-                },
-                {
-                  score: res.data.ext[key]['NETINCMAIBUSINC'],
-                  desc: '1.按0分到100分划分，评分越高，企业盈利实力越强,2.通过分析可为企业贡献利润有关行为后的评估结果。主要反映企业当前的盈利水平',
-                  features: '企业盈利能力'
-                },
-                {
-                  score: res.data.ext[key]['PROGRO_yoy'],
-                  desc: '1.按0分到100分划分，评分越高，企业持续盈利能力越强,2.通过分析可为企业贡献净利润有关行为，以及对应行为同比增速后的评估结果。主要反映企业的盈利趋势，供判断企业今后一段时期的盈利能力',
-                  features: '企业盈利可持续能力'
-                },
-                {
-                  score: res.data.ext[key]['VENDINC'],
-                  desc: '1.按0分到100分划分，评分越高，企业规模越大,2.通过分析与企业营收能力有关行为后的评估结果。主要供判断企业的规模状况',
-                  features: '企业规模状况'
-                },
-                {
-                  score: res.data.ext[key]['VENDINC_yoy'],
-                  desc: '1.按0分到100分划分，评分越高，企业发展与经营的增速越高,2.通过分析与企业营收增长能力有关行为后的评估结果。主要反映企业的成长速度，供判断企业的高成长性价值',
-                  features: '企业成长性状况'
-                }
-              ]
-            }
-            if (obj.scoreAll > max) {
-              max = obj.scoreAll
-              this.bestEnt = ' <' + key + '> '
-            }
-            i++
-            this.scoreData.push(obj)
-          }
+          this.scoreDataForVENDINC = res.data.ext.VENDINC
+          this.scoreDataForPROGRO = res.data.ext.PROGRO
+          this.scoreDataForASSGRO = res.data.ext.ASSGRO
+          this.bestEntForVENDINC = '基于对同类企业对应行为信息的智能算法评估分析，< ' + res.data.ext.VENDINC[0].entName + ' > 为目前对比群体中的较优者';
+          this.bestEntForPROGRO = '基于对同类企业对应行为信息的智能算法评估分析，< ' + res.data.ext.PROGRO[0].entName + ' > 为目前对比群体中的较优者';
+          this.bestEntForASSGRO = '基于对同类企业对应行为信息的智能算法评估分析，< ' + res.data.ext.ASSGRO[0].entName + ' > 为目前对比群体中的较优者';
         }
         this.$message({
           message: '查询成功',

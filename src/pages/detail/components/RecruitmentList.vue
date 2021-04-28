@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="tableData" border>
+    <el-table :data="tableData" border :header-cell-style="{color:'#006eda'}">
       <el-table-column
         align="center"
         prop="Title"

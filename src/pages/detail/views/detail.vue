@@ -162,6 +162,7 @@ export default {
       .body-tag-content-header {
         font-size 20px
         font-weight 800
+        color #006eda
       }
 
       .body-tag-content-body {

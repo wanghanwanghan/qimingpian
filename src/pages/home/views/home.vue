@@ -19,6 +19,15 @@
         </div>
       </div>
       <div class="one-row">
+        <div class="one-row-left">添加标签</div>
+        <div class="one-row-right">
+          <el-input style="width: 30%;margin-left: 8px" placeholder="请输入业务标签名称" v-model="labelInput"
+                    class="input-with-select">
+            <el-button slot="append" icon="el-icon-plus" @click="addLabel"></el-button>
+          </el-input>
+        </div>
+      </div>
+      <div class="one-row">
         <div class="one-row-left">融资轮次</div>
         <div class="one-row-right">
           <div :class="{oneTag:true,onTagClickClass:tag2CurrentIndex === index}" v-for="(item,index) of tag2list"
@@ -44,7 +53,8 @@
       </div>
     </div>
     <div class="content-wrapper">
-      <el-table :data="tableData" border @row-click="rowClick">
+      <el-table :data="tableData" border @row-click="rowClick"
+                :header-cell-style="{color:'#006eda'}">
         <el-table-column
           align="center"
           prop="company_name"
@@ -55,7 +65,7 @@
           label="产品"
           width="550">
           <template slot-scope="scope">
-            <el-table :data="scope.row.enterprise_business" border>
+            <el-table :data="scope.row.enterprise_business" border :header-cell-style="{color:'#006eda'}">
               <el-table-column
                 align="center"
                 prop="name"
@@ -157,6 +167,7 @@ export default {
   // },
   data() {
     return {
+      labelInput: '',
       labelPosition: 'right',
       form: {
         phone: '',
@@ -203,6 +214,10 @@ export default {
   computed: {},
   // watch: {},
   mounted() {
+    if (localStorage.getItem('userLabels').length > 1) {
+      let tmp = JSON.parse(localStorage.getItem('userLabels'))
+      this.tag1list.push(...tmp)
+    }
     this.getData()
   },
   // beforeCreate() {
@@ -340,6 +355,21 @@ export default {
     search() {
       this.cond.page = 1
       this.getData()
+    },
+    addLabel() {
+      this.labelInput = this.labelInput.trim()
+      if (this.labelInput.length > 0) {
+        this.tag1list.push(this.labelInput)
+        if (localStorage.getItem('userLabels').length < 1) {
+          //第一次添加
+          localStorage.setItem('userLabels', JSON.stringify([this.labelInput]))
+        } else {
+          //第n次添加
+          let tmp = JSON.parse(localStorage.getItem('userLabels'))
+          tmp.push(this.labelInput)
+          localStorage.setItem('userLabels', JSON.stringify(tmp))
+        }
+      }
     }
   }
 }
@@ -402,6 +432,7 @@ export default {
       .one-row-left {
         width 5%
         margin-top 10px
+        color #006eda
       }
 
       .one-row-right {

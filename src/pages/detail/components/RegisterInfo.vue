@@ -114,5 +114,6 @@ export default {
 
 .table-wrapper .td-title {
   width 110px
+  color #006eda
 }
 </style>
