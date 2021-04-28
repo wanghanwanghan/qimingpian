@@ -214,7 +214,7 @@ export default {
   computed: {},
   // watch: {},
   mounted() {
-    if (localStorage.getItem('userLabels').length > 1) {
+    if (localStorage.getItem('userLabels') !== null || localStorage.getItem('userLabels').length > 1) {
       let tmp = JSON.parse(localStorage.getItem('userLabels'))
       this.tag1list.push(...tmp)
     }
