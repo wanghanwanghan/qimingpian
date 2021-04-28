@@ -33,6 +33,15 @@
         label="发明人">
       </el-table-column>
     </el-table>
+    <div class="pagination-wrapper">
+      <div class="total-count">共 {{ queryZl.total }} 条</div>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="queryZl.total"
+        :hide-on-single-page="true"
+        @current-change="zlPageChange">
+      </el-pagination>
+    </div>
     <div class="title-rz">软著</div>
     <el-table :data="tableData2" border :header-cell-style="{color:'#006eda'}">
       <el-table-column
@@ -66,6 +75,15 @@
         label="版本号">
       </el-table-column>
     </el-table>
+    <div class="pagination-wrapper">
+      <div class="total-count">共 {{ queryRz.total }} 条</div>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="queryRz.total"
+        :hide-on-single-page="true"
+        @current-change="rzPageChange">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -83,7 +101,15 @@ export default {
   data() {
     return {
       tData: {},
-      tableData: [],
+      queryZl: {
+        page: 1,
+        total: 0
+      },
+      queryRz: {
+        page: 1,
+        total: 0
+      },
+      tableData: [],//专利
       tableData2: []//软著
     }
   },
@@ -94,38 +120,8 @@ export default {
     this.tData = JSON.parse(localStorage.getItem('ent'))
     this.phone = localStorage.getItem('phone')
     this.auth = localStorage.getItem('auth')
-    request.post('api/v1/qcc/getPatentV4Search', {
-      'entName': this.tData.company_name,
-      'phone': this.phone,
-      'page': 1,
-      'pageSize': 100
-    }, this.auth).then(res => {
-      if (res.data.code === 200) {
-        res.data.result.forEach(ele => {
-          ele.InventorStringList = ele.InventorStringList.join()
-          ele.ApplicationDate = ele.ApplicationDate.slice(0, 10)
-          ele.PublicationDate = ele.PublicationDate.slice(0, 10)
-        })
-        this.tableData = res.data.result
-      }
-    }).catch(err => {
-      this.$message.error('查询失败')
-    })
-    request.post('api/v1/qcc/getSearchSoftwareCr', {
-      'entName': this.tData.company_name,
-      'phone': this.phone,
-      'page': 1,
-      'pageSize': 100
-    }, this.auth).then(res => {
-      if (res.data.code === 200) {
-        res.data.result.forEach(ele => {
-          ele.RegisterAperDate = ele.RegisterAperDate.slice(0, 10)
-        })
-        this.tableData2 = res.data.result
-      }
-    }).catch(err => {
-      this.$message.error('查询失败')
-    })
+    this.getZlData()
+    this.getRzData()
   },
   // beforeCreate() {
   // },
@@ -145,11 +141,68 @@ export default {
   // },
   // deactivated() {
   // },
-  methods: {}
+  methods: {
+    getZlData() {
+      request.post('api/v1/qcc/getPatentV4Search', {
+        'entName': this.tData.company_name,
+        'phone': this.phone,
+        'page': 1,
+        'pageSize': 10
+      }, this.auth).then(res => {
+        if (res.data.code === 200) {
+          res.data.result.forEach(ele => {
+            ele.InventorStringList = ele.InventorStringList.join()
+            ele.ApplicationDate = ele.ApplicationDate.slice(0, 10)
+            ele.PublicationDate = ele.PublicationDate.slice(0, 10)
+          })
+          this.tableData = res.data.result
+          this.queryZl.total = res.data.paging.total
+        }
+      }).catch(err => {
+        this.$message.error('查询失败')
+      })
+    },
+    getRzData() {
+      request.post('api/v1/qcc/getSearchSoftwareCr', {
+        'entName': this.tData.company_name,
+        'phone': this.phone,
+        'page': this.queryRz.page,
+        'pageSize': 10
+      }, this.auth).then(res => {
+        if (res.data.code === 200) {
+          res.data.result.forEach(ele => {
+            ele.RegisterAperDate = ele.RegisterAperDate.slice(0, 10)
+          })
+          this.tableData2 = res.data.result
+          this.queryRz.total = res.data.paging.total
+        }
+      }).catch(err => {
+        this.$message.error('查询失败')
+      })
+    },
+    zlPageChange(index) {
+      this.queryZl.page = index
+      this.getZlData()
+    },
+    rzPageChange(index) {
+      this.queryRz.page = index
+      this.getRzData()
+    }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
+.pagination-wrapper {
+  text-align right
+
+  .total-count {
+    margin-top 8px
+    margin-right 16px
+    margin-bottom 3px
+  }
+}
+
 .title-zl {
   width 100%
   text-align center

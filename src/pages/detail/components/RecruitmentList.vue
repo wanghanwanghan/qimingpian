@@ -32,6 +32,15 @@
         label="办公地点">
       </el-table-column>
     </el-table>
+    <div class="pagination-wrapper">
+      <div class="total-count">共 {{ queryZp.total }} 条</div>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="queryZp.total"
+        :hide-on-single-page="true"
+        @current-change="zpPageChange">
+      </el-pagination>
+    </div>
   </div>
 </template>
 
@@ -49,6 +58,10 @@ export default {
   data() {
     return {
       tData: {},
+      queryZp: {
+        page: 1,
+        total: 0
+      },
       tableData: []
     }
   },
@@ -59,18 +72,7 @@ export default {
     this.tData = JSON.parse(localStorage.getItem('ent'))
     this.phone = localStorage.getItem('phone')
     this.auth = localStorage.getItem('auth')
-    request.post('api/v1/qcc/getRecruitmentList', {
-      'entName': this.tData.company_name,
-      'phone': this.phone,
-      'page': 1,
-      'pageSize': 100
-    }, this.auth).then(res => {
-      if (res.data.code === 200) {
-        this.tableData = res.data.result
-      }
-    }).catch(err => {
-      this.$message.error('查询失败')
-    })
+    this.getZpData()
   },
   // beforeCreate() {
   // },
@@ -90,10 +92,38 @@ export default {
   // },
   // deactivated() {
   // },
-  methods: {}
+  methods: {
+    getZpData() {
+      request.post('api/v1/qcc/getRecruitmentList', {
+        'entName': this.tData.company_name,
+        'phone': this.phone,
+        'page': this.queryZp.page,
+        'pageSize': 10
+      }, this.auth).then(res => {
+        if (res.data.code === 200) {
+          this.tableData = res.data.result
+          this.queryZp.total = res.data.paging.total
+        }
+      }).catch(err => {
+        this.$message.error('查询失败')
+      })
+    },
+    zpPageChange(index) {
+      this.queryZp.page = index
+      this.getZpData()
+    }
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
+.pagination-wrapper {
+  text-align right
 
+  .total-count {
+    margin-top 8px
+    margin-right 16px
+    margin-bottom 3px
+  }
+}
 </style>
