@@ -31,7 +31,7 @@
         </el-row>
       </div>
       <div class="finance-btn" v-show="showBtn">
-        <el-button type="warning" round @click="getData">您共有 5 次免费查看机会，还剩 {{ lookCount }} 次</el-button>
+        <el-button type="warning" round @click="getData">点击免费查看 5 家新标企业的财务表现，还剩 {{ lookCount }} 次</el-button>
       </div>
       <div v-show="showBtn">
         <div class="block">
