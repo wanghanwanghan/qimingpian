@@ -328,10 +328,10 @@ export default {
             this.handlerPData(this.fData)
             this.handlerVData(this.fData)
             this.handlerAData(this.fData)
-            this.$message({
-              message: '查询成功',
-              type: 'success'
-            })
+            // this.$message({
+            //   message: '查询成功',
+            //   type: 'success'
+            // })
           }
           if (res.data.code === 240) {
             localStorage.setItem('auth', '')
@@ -712,10 +712,10 @@ export default {
           this.bestEntForPROGRO = '基于对同类企业对应行为信息的智能算法评估分析，< ' + res.data.ext.PROGRO[0].entName + ' > 为目前对比群体中的较优者';
           this.bestEntForASSGRO = '基于对同类企业对应行为信息的智能算法评估分析，< ' + res.data.ext.ASSGRO[0].entName + ' > 为目前对比群体中的较优者';
         }
-        this.$message({
-          message: '查询成功',
-          type: 'success'
-        });
+        // this.$message({
+        //   message: '查询成功',
+        //   type: 'success'
+        // });
       }).catch(err => {
         this.$message.error('查询失败')
       });

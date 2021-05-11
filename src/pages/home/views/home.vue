@@ -272,10 +272,10 @@ export default {
           this.cond.total = res.data.paging.total
         }
         this.tableData = this.handleTableData(res.data.result)
-        this.$message({
-          message: '查询成功',
-          type: 'success'
-        })
+        // this.$message({
+        //   message: '查询成功',
+        //   type: 'success'
+        // })
       }).catch(err => {
         this.$message.error('查询失败')
         this.tableData = []
