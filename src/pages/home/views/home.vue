@@ -92,33 +92,39 @@
         <el-table-column
           align="center"
           prop="business_information.company_cate"
-          label="行业领域">
+          label="行业领域"
+          :formatter="col_formatter">
         </el-table-column>
         <el-table-column
           align="center"
           prop="company_region[0].province"
           label="地区"
-          width="65">
+          width="65"
+          :formatter="col_formatter">
         </el-table-column>
         <el-table-column
           align="center"
           prop="financing_process[0].round_level"
-          label="投资轮次">
+          label="投资轮次"
+          :formatter="col_formatter">
         </el-table-column>
         <el-table-column
           align="center"
           prop="financing_process[0].date"
-          label="投资时间">
+          label="投资时间"
+          :formatter="col_formatter">
         </el-table-column>
         <el-table-column
           align="center"
           prop="financing_process[0].money"
-          label="投资金额">
+          label="投资金额"
+          :formatter="col_formatter">
         </el-table-column>
         <el-table-column
           align="center"
           prop="financing_process[0].investfirms"
-          label="投资方">
+          label="投资方"
+          :formatter="col_formatter">
         </el-table-column>
       </el-table>
     </div>
@@ -132,7 +138,7 @@
     </div>
     <div class="login-wrapper">
       <el-dialog
-        title="登陆"
+        title="登录"
         :visible.sync="dvShow"
         width="30%"
         center>
@@ -147,7 +153,7 @@
         <span slot="footer" class="dialog-footer">
           <el-button @click="dvShow = false">取 消</el-button>
           <el-button type="primary" @click="getCode">获取验证码</el-button>
-          <el-button type="primary" @click="login">登陆</el-button>
+          <el-button type="primary" @click="login">登录</el-button>
         </span>
       </el-dialog>
     </div>
@@ -220,6 +226,13 @@ export default {
       this.tag1list.push(...tmp)
     }
     this.getData()
+    let home_show = localStorage.getItem('home_show')
+    if (home_show !== '123') {
+      this.$alert('点击筛选列表后查看项目财务表现', '提示', {
+        confirmButtonText: '确定',
+      })
+      localStorage.setItem('home_show', '123')
+    }
   },
   // beforeCreate() {
   // },
@@ -240,6 +253,12 @@ export default {
   // deactivated() {
   // },
   methods: {
+    col_formatter(row, column, cellValue, index) {
+      if (cellValue === undefined) {
+        return '--'
+      }
+      return cellValue
+    },
     tag1click(e, index) {
       this.tag1CurrentIndex = index
       this.cond.tag = e.target.innerText
@@ -341,10 +360,10 @@ export default {
               this.dvShow = false
               this.$router.push('/')
             } else {
-              this.$message.error('登陆失败')
+              this.$message.error('登录失败')
             }
           }).catch(err => {
-            this.$message.error('登陆失败')
+            this.$message.error('登录失败')
           })
         } else {
           this.$message.error('失败')
