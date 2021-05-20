@@ -65,8 +65,7 @@
           label="产品"
           width="550">
           <template slot-scope="scope">
-            <el-table :show-header="true" :data="scope.row.enterprise_business" border
-                      :header-cell-style="{color:'#006eda'}">
+            <el-table :show-header="true" :data="scope.row.enterprise_business" border :header-cell-style="{color:'#006eda'}">
               <el-table-column
                 align="center"
                 prop="name"
@@ -89,6 +88,10 @@
               </el-table-column>
             </el-table>
           </template>
+          <el-table-column align="center" label="名称"></el-table-column>
+          <el-table-column align="center" label="标签"></el-table-column>
+          <el-table-column align="center" label="描述"></el-table-column>
+          <el-table-column align="center" label="时间"></el-table-column>
         </el-table-column>
         <el-table-column
           align="center"
