@@ -10,7 +10,7 @@
                           clearable></el-input>
                 <el-button type="primary" @click="search">搜索</el-button>
               </div>
-              <div v-for="(item,index) of entList" :key="input" class="text item ent-list-wrapper">
+              <div v-for="(item,index) of entList" :key="index" class="text item ent-list-wrapper">
                 <div class="ent-list-item">{{ item.Name }}</div>
                 <div class="diff-btn" @click="addDiff(item.Name)">加入对比</div>
               </div>
@@ -369,7 +369,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: ['2017', '2018', '2019'],
+            data: ['2018', '2019', '2020'],
             axisPointer: {
               type: 'shadow'
             }
@@ -419,7 +419,7 @@ export default {
         legend.push(key + '同比')
         let yearData = []
         let yearDataYoy = []
-        for (let i = 2017; i <= 2019; i++) {
+        for (let i = 2018; i <= 2020; i++) {
           yearData.push(data[key][i]['PROGRO'])
           yearDataYoy.push(data[key][i]['PROGRO_yoy'])
         }
@@ -478,7 +478,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: ['2017', '2018', '2019'],
+            data: ['2018', '2019', '2020'],
             axisPointer: {
               type: 'shadow'
             }
@@ -528,7 +528,7 @@ export default {
         legend.push(key + '同比')
         let yearData = []
         let yearDataYoy = []
-        for (let i = 2017; i <= 2019; i++) {
+        for (let i = 2018; i <= 2020; i++) {
           yearData.push(data[key][i]['VENDINC'])
           yearDataYoy.push(data[key][i]['VENDINC_yoy'])
         }
@@ -587,7 +587,7 @@ export default {
         xAxis: [
           {
             type: 'category',
-            data: ['2017', '2018', '2019'],
+            data: ['2018', '2019', '2020'],
             axisPointer: {
               type: 'shadow'
             }
@@ -637,7 +637,7 @@ export default {
         legend.push(key + '同比')
         let yearData = []
         let yearDataYoy = []
-        for (let i = 2017; i <= 2019; i++) {
+        for (let i = 2018; i <= 2020; i++) {
           yearData.push(data[key][i]['ASSGRO'])
           yearDataYoy.push(data[key][i]['ASSGRO_yoy'])
         }

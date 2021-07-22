@@ -167,11 +167,7 @@ import request from "../../../comm/js/request"
 export default {
   name: '',
   components: {},
-  // filters: {},
   props: {},
-  // provide() {
-  //   return {}
-  // },
   data() {
     return {
       labelInput: '',
@@ -217,9 +213,6 @@ export default {
       tableData: []
     }
   },
-  // inject: [],
-  computed: {},
-  // watch: {},
   mounted() {
     let tmp = localStorage.getItem('userLabels');
     if (tmp !== null && tmp.length > 1) {
@@ -235,24 +228,6 @@ export default {
       localStorage.setItem('home_show', '123')
     }
   },
-  // beforeCreate() {
-  // },
-  // created() {
-  // },
-  // beforeMount() {
-  // },
-  // beforeUpdate() {
-  // },
-  // updated() {
-  // },
-  // beforeDestroy() {
-  // },
-  // destroyed() {
-  // },
-  // activated() {
-  // },
-  // deactivated() {
-  // },
   methods: {
     col_formatter(row, column, cellValue, index) {
       if (cellValue === undefined) {
